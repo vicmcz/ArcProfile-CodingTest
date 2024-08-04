@@ -1,0 +1,55 @@
+/*
+  使用BEM CSS命名规范
+  原因：应用较为简单，且没有复杂的组件嵌套结构，无复用样式逻辑，因此使用BEM命名规范
+  @see https://www.bemcss.com/
+*/
+
+.flex-center {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  width: 100vw;
+  height: 100vh;
+
+  &-header {
+    padding: 0;
+  }
+
+  &-alert {
+    height: 60px;
+    padding: 12px;
+  }
+
+  &-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+
+    & > .MuiBox-root {
+      width: 64px !important;
+      height: 64px !important;
+    }
+  }
+
+  &-content {
+    padding: 15px;
+  }
+
+  &-btns {
+    padding-top: 12px;
+
+    button {
+      margin: 0 24px;
+    }
+  }
+
+  &-footer {
+    padding: 0;
+  }
+}

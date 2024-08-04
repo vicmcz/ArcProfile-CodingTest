@@ -1,0 +1,13 @@
+/lambda/
+/scripts
+/config
+template
+.history
+public
+dist
+ROOT
+build
+.umi
+mock
+Assets
+Language
