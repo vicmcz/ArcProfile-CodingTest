@@ -37,15 +37,17 @@ module.exports = {
     'no-spaced-func': 2, // 函数调用时 函数名与()之间不能有空格
     'no-this-before-super': 0, // 在调用super()之前不能使用this或super
     'no-undef': 2, // 不能有未定义的变量
+    // "no-use-before-define": 2, //未定义前不能使用
+    camelcase: 0, // 强制驼峰法命名
+    'jsx-quotes': [2, 'prefer-double'], // 强制在JSX属性（jsx-quotes）中一致使用双引号
+    'require-await': 2, // 禁止使用不带 await 表达式的 async 函数 (require-await)
     'no-shadow': 0,
     'no-else-return': 0,
     'no-return-await': 0,
     'import/no-unresolved': 0,
     'no-template-curly-in-string': 0,
-    // "no-use-before-define": 2, //未定义前不能使用
-    camelcase: 0, // 强制驼峰法命名
-    'jsx-quotes': [2, 'prefer-double'], // 强制在JSX属性（jsx-quotes）中一致使用双引号
-    'require-await': 2, // 禁止使用不带 await 表达式的 async 函数 (require-await)
+    'spaced-comment': 0,
+    'unicorn/filename-case': 0,
 
     'react/display-name': 0, // 防止在React组件定义中丢失displayName
     'react/forbid-prop-types': [2, { forbid: ['any'] }], // 禁止某些propTypes

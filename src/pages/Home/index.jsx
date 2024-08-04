@@ -8,12 +8,18 @@ import { UserOutlined } from '@ant-design/icons';
 import { trackError } from '@/libs/sp';
 import { FORM_RULE } from '@/libs/validation';
 import { useSessionContext } from '@/libs/session';
+import { debounce } from '@/libs/util';
 import api from './api';
 
-function Demo(props) {
+/**
+ * 编码说明：
+ * 1. css 模块化 —— 内容较少，采用BEM规范
+ * 2. JS 模块化 —— 内容较少，无需hooks业务逻辑封装
+ */
+function Home(props) {
   // #region props ----------------
-  // eslint-disable-next-line no-unused-vars
-  const { key } = props;
+  // eslint-disable-next-line  no-empty-pattern
+  const {} = props;
   // #endregion props ----------------
 
   // #region redux -----------
@@ -29,14 +35,18 @@ function Demo(props) {
   // #endregion ref  -----------
 
   // #region const -----------
+  // 是否DID用户登录
   const isLogin = !!session.user;
-  const formItemLayout = { labelCol: { span: 6 }, wrapperCol: { span: 18 } };
+  // formItem layout数据
+  const formItemLayout = { labelCol: { span: 6 }, wrapperCol: { span: 24 } };
   // #endregion const -----------
 
   // #region state -----------
   // 是否允许编辑
   const [isEdit, setIsEdit] = useState(false);
+  // 提交用户信息loading
   const [loading, setLoading] = useState(false);
+  // 当前DID用户对应的用户信息
   const [userInfo, setUserInfo] = useState({});
   // #endregion state -----------
 
@@ -47,13 +57,20 @@ function Demo(props) {
   // #region function -----------
 
   // 获取用户信息
+  // 获取用户信息的异步函数
   const getUser = async () => {
+    // 等待 API 获取数据
     const { data } = await api.get();
+    // 从数据对象中提取必要信息，构建用户信息对象 userInfo
     const userInfo = {
+      // 解构 data 对象中的所有属性
       ...(data.data || {}),
+      // 添加或覆盖 id 属性，其值为 data 对象中的 _id 属性
       id: data._id,
     };
+    // 更新组件状态，设置用户信息
     setUserInfo(userInfo);
+    // 设置表单字段的值，用于自动填充表单
     form.setFieldsValue(userInfo);
   };
 
@@ -68,16 +85,19 @@ function Demo(props) {
     form.setFieldsValue(userInfo);
   };
 
-  // 监听提交用户信息
+  // 提交用户信息
   const submitUserInfo = async () => {
     try {
+      // loading 请求拦截
       if (loading) return;
       setLoading(true);
+      // 表单校验
       const values = await form.validateFields();
       // 根据是否存在用户id来判断是新增还是编辑用户
       const isEdit = !!userInfo.id;
       const request = isEdit ? api.update : api.create;
       const { data, message: msg } = await request(values);
+      // 写入新用户信息
       const newUserInfo = {
         ...(data.data || {}),
         id: data._id,
@@ -87,7 +107,7 @@ function Demo(props) {
       message.success(msg);
       setIsEdit(false);
     } catch (error) {
-      // catch 会导致日志自动补货失效
+      // catch 会导致自动异常捕获失效
       trackError(error);
     } finally {
       setLoading(false);
@@ -105,6 +125,7 @@ function Demo(props) {
       // 退出登录，恢复默认值
       form.resetFields();
     }
+    // getUser 与 form 不依赖其他项，因此不作为依赖项传入
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogin]);
 
@@ -124,7 +145,15 @@ function Demo(props) {
 
       {/* ------------ Content ------------ */}
       <Layout.Content className="profile-content">
-        <Form form={form} {...formItemLayout} colon size="large" disabled={!isEdit}>
+        <Form
+          form={form}
+          {...formItemLayout}
+          colon
+          size="large"
+          layout="vertical"
+          disabled={!isEdit}
+        >
+          {/* 表单内容 */}
           <div className="profile-avatar flex-center">
             {isLogin ? (
               <DidAvatar did={session?.user?.did} />
@@ -143,12 +172,18 @@ function Demo(props) {
           </Form.Item>
         </Form>
 
+        {/* 表单按钮 */}
         <Form.Item>
           <Row justify="center" className="profile-btns">
             {isEdit ? (
               <>
                 <Button onClick={cancelEditUserInfo}>取消</Button>
-                <Button type="primary" htmlType="submit" loading={loading} onClick={submitUserInfo}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={loading}
+                  onClick={debounce(submitUserInfo, 100)}
+                >
                   保存
                 </Button>
               </>
@@ -171,4 +206,4 @@ function Demo(props) {
   );
 }
 
-export default Demo;
+export default Home;

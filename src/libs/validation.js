@@ -1,3 +1,6 @@
+/**
+ * 校验常用的正则表达式
+ */
 export const VALIDATE_REG = {
   // 手机号码校验
   mobilePhone: /^(0(10|2\d|[3-9]\d\d)[- ]{0,3}\d{7,8}|0?1[3584]\d{9})$/,
@@ -42,6 +45,9 @@ export const VALIDATE_REG = {
   inputCommon: /^[a-zA-Z0-9]+$/,
 };
 
+/**
+ * Form表单常用到的rule校验规则
+ */
 export const FORM_RULE = {
   required: {
     required: true,

@@ -1,3 +1,4 @@
+const logger = require('../libs/logger');
 const { asyncDb } = require('../models/user');
 
 /**
@@ -30,17 +31,22 @@ const findUserByAccount = async (account) => {
 /**
  * @description 获取用户
  */
-const getUser = async (req, res) => {
-  const { user } = req;
-  const data = await findUserByDID(user.did);
-  if (!data) {
-    return res.json({ success: false, message: '用户不存在' });
-  } else {
-    return res.json({
-      success: true,
-      message: '获取用户信息成功',
-      data,
-    });
+const getUser = async (req, res, next) => {
+  try {
+    const { user } = req;
+    const data = await findUserByDID(user.did);
+    if (!data) {
+      return res.json({ success: false, message: '用户不存在' });
+    } else {
+      return res.json({
+        success: true,
+        message: '获取用户信息成功',
+        data,
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    return next(error);
   }
 };
 
@@ -82,8 +88,9 @@ const createUser = async (req, res, next) => {
         });
       }
     }
-  } catch (err) {
-    return next(err);
+  } catch (error) {
+    logger.error(error);
+    return next(error);
   }
 };
 
@@ -142,6 +149,7 @@ const updateUser = async (req, res, next) => {
       }
     }
   } catch (error) {
+    logger.error(error);
     return next(error);
   }
 };
