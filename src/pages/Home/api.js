@@ -1,4 +1,4 @@
-import { get, post } from '../../libs/api';
+import { get, post } from '@/libs/api';
 
 export default {
   // 根据DID用户获取app用户信息

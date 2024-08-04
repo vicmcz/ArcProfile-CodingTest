@@ -8,7 +8,7 @@ const api = createAxios({
   baseURL: window?.blocklet?.prefix || '/',
 });
 
-// 获取默认数据
+// 获取默认入参数据
 const getDefaultData = () => {
   return {};
 };
@@ -57,7 +57,7 @@ api.interceptors.request.use((options) => {
     method = 'GET',
     params = {},
     data = {},
-    isDefaultData = true, // 是否需要默认参数 —— 组织和仓库， 默认为true，有些功能页面仅需要组织
+    isDefaultData = true, // 是否需要默认参数
   } = options;
 
   // 请求默认入参
@@ -108,7 +108,7 @@ api.interceptors.response.use(
       }
     }
 
-    // 相应日志记录
+    // 响应日志记录
     trackResAction(response);
 
     // 仅返回 body 响应体，其余内容在请求拦截器中处理掉

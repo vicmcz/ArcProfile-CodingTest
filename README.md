@@ -1,23 +1,34 @@
-# Getting Started with Create Blocklet
+# ArcProfile CodingTest
 
-This project was bootstrapped with [Create Blocklet](https://github.com/blocklet/create-blocklet).
+ArcBlock CodingTest 项目
 
-This blocklet is a dapp project, which means this is a full-stack application. It's contained both `server` and `client` code.
+## 目录结构
 
-## File Structure
-
-- public/ - static files
+- public/ - 静态文件目录
   - favicon.ico - favicon
   - favicon.svg - favicon
   - index.html - main html file, template for react
-- screenshots/ - Screenshots
-- api/ - Api side code
-  - hooks/ - blocklet lifecycle hooks
-  - libs/ - Api side libraries
-  - middlewares/ - Api side middlewares
-  - routes/ - Api side routes
-  - index.js - Api side entry point
-- src/ - Client side code (A standard react app structure)
+- api/    - app服务器
+  - index.js - 服务端入口
+  - controllers/ - app api controllers 服务层
+  - libs/ - app 通用库
+  - models/ - app api 数据层
+  - routes/ - app api 路由层
+  - validations/ - app api 切片校验
+- src/    - app客户端端
+  - index.js - 客户端入口
+  - app.js   - 客户端启动文件
+  - router   - 路由器
+  - pages    - 路由页面文件夹
+      - index - 路由页面主入口
+      - api  - 私有api文件
+      - libs - 私有库
+      - const - 私有常量
+      - hooks - 私有hooks
+  - libs     - 通用库
+  - hooks    - 通用hooks
+  - components    - 通用组件
+  - assets   - 静态资源
 - .env - Environment variables
 - .env.local - Local environment variables
 - .eslintrc.js - ESLint configuration
@@ -32,6 +43,14 @@ This blocklet is a dapp project, which means this is a full-stack application. I
 - README.md - A guide for this blocklet
 - version - Version file
 
+PS： 
+1. 文件夹 —— React组件为大驼峰，其余为小驼峰
+
+## CSS模块化规范
+
+1. 组件 —— CSS modules模块化
+2. 页面 —— BEM 命名模块化，内容较少采用该方式
+ 
 ## Development
 
 1. Make sure you have [@blocklet/cli](https://www.npmjs.com/package/@blocklet/cli) installed

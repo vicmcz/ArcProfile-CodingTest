@@ -5,6 +5,9 @@ import { createAuthServiceSessionContext } from '@arcblock/did-connect/lib/Sessi
 const { SessionProvider, SessionContext, SessionConsumer, withSession } =
   createAuthServiceSessionContext();
 
+/**
+ * @description DID session 信息
+ */
 function useSessionContext() {
   const { api, ...rests } = useContext(SessionContext);
   return { api, ...rests };
