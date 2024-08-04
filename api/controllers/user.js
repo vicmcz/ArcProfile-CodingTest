@@ -36,7 +36,7 @@ const getUser = async (req, res, next) => {
     const { user } = req;
     const data = await findUserByDID(user.did);
     if (!data) {
-      return res.json({ success: false, message: '用户不存在' });
+      return res.json({ success: false, message: '用户不存在，请先注册' });
     } else {
       return res.json({
         success: true,

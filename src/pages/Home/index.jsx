@@ -139,12 +139,11 @@ function Home(props) {
       </Layout.Header>
       {/* ------------ Header ------------ */}
 
-      <div className="profile-alert">
-        {!isLogin && <Alert type="info" message="请先登录DID钱包用户"></Alert>}
-      </div>
-
       {/* ------------ Content ------------ */}
       <Layout.Content className="profile-content">
+        <div className="profile-alert">
+          {!isLogin && <Alert type="info" message="请先登录DID钱包用户"></Alert>}
+        </div>
         <Form
           form={form}
           {...formItemLayout}
